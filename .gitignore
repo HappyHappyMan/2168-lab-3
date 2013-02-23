@@ -1,4 +1,6 @@
 *.class
+*.sublime-project
+*.sublime-workspace
 
 # Package Files #
 *.jar
