@@ -29,35 +29,35 @@ priority.
 
 Implement the following algorithm---
 
-    Create a Queue A and a Stack B
-    While (there are still tokens in the input array)
-    {
-      get the next token
-      if it is a constant (double), enqueue it into A
-      else if it is a (, push it into B
-      else if it is an operator
-      {
-        if (B is empty, or if the priority of B has a lower priority than the token)
-          push the new operator onto B
-        else
-        {
-          while (!B.isEmpty() && B.peek() != '(') 
-          {
-            A.enqueue(B.pop());
-          }
-          push the new operator onto B
-        }
-      }
-      if the next token is a ')'
-      {
-        while (!B.isempty() && B.peek() != '(')
-        {
-          A.enqueue(B.pop());
-        }
-        B.pop();
-      }
-    } //end of while
-    while (!B.isempty() {A.enqueue(B.pop());}
+                Create a Queue A and a Stack B
+                While (there are still tokens in the input array)
+                {
+                  get the next token
+                  if it is a constant (double), enqueue it into A
+                  else if it is a (, push it into B
+                  else if it is an operator
+                  {
+                    if (B is empty, or if the priority of B has a lower priority than the token)
+                      push the new operator onto B
+                    else
+                    {
+                      while (!B.isEmpty() && B.peek() != '(') 
+                      {
+                        A.enqueue(B.pop());
+                      }
+                      push the new operator onto B
+                    }
+                  }
+                  if the next token is a ')'
+                  {
+                    while (!B.isempty() && B.peek() != '(')
+                    {
+                      A.enqueue(B.pop());
+                    }
+                    B.pop();
+                  }
+                } //end of while
+                while (!B.isempty() {A.enqueue(B.pop());}
 
 
 At this point, A should be a queue containg the post-fix equivalent
