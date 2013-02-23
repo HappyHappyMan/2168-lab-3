@@ -29,7 +29,7 @@ priority.
 
 Implement the following algorithm---
 
-Create a Queue A and a Stack B
+    Create a Queue A and a Stack B
     While (there are still tokens in the input array)
     {
       get the next token
@@ -37,8 +37,7 @@ Create a Queue A and a Stack B
       else if it is a (, push it into B
       else if it is an operator
       {
-        if (B is empty, or if the priority of B has a lower priority than
-        the token)
+        if (B is empty, or if the priority of B has a lower priority than the token)
           push the new operator onto B
         else
         {
