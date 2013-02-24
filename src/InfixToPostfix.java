@@ -50,7 +50,7 @@ public class InfixToPostfix
 				}
 				else
 				{
-					while (!tokenStack.isEmpty() && tokenStack.peek().equals("("))
+					while (!tokenStack.isEmpty() && !tokenStack.peek().equals("("))
 					{
 						doubleQueue.add(tokenStack.pop());
 					}
@@ -75,10 +75,14 @@ public class InfixToPostfix
 	}
 
 	//TODO i'll get to this
-	// private double evalPostFix()
-	// {
+	private double evalPostFix()
+	{
+		Stack<Double> numbers = new Stack<Double>();
+		String[] operators = {"*","/","+","-",")","("};
+		//TODO just to shut up the linter
+		return 0.0;
 
-	// }
+	}
 
 	private boolean isStringNumeric(String str)
 	{	
@@ -111,7 +115,7 @@ public class InfixToPostfix
 	 * @param  op1 first operator
 	 * @param  op2 second operator
 	 * @return     returns -1 if op1 has lesser priority, 1 if op1 has greater priority, or 
-	 * 0 if op1 has equal priority. Returns 2 otherwise, though this should never happen.
+	 * 0 if op1 has equal priority. Returns -2 otherwise.
 	 */
 	private int compareOperators(String op1, String op2)
 	{
@@ -124,6 +128,6 @@ public class InfixToPostfix
 		else if ( (op1.equals("+") || op1.equals("-")) && ( (op2.equals("+") || op2.equals("-") ) ) )
 			return 0;
 		else
-			return 2;
+			return -2;
 	}
 }
