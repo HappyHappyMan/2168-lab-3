@@ -48,7 +48,7 @@ public class InfixToPostfix
       else if (Arrays.asList(operators).contains(eval))                             // if the token is an operator
       {
         System.out.println("eval is an operator");
-        if (tokenStack.isEmpty() || compareOperators(eval, tokenStack.peek()) > 0)  // if stack is empty, or the if the priority of the stack has a lower priority than that of the token
+        if (tokenStack.isEmpty() || compareOperators(eval, tokenStack.peek()) < 0)  // if stack is empty, or the if the priority of the stack has a lower priority than that of the token
         {
           System.out.println("took option 1 on line 51");
           tokenStack.push(eval);
@@ -65,14 +65,19 @@ public class InfixToPostfix
         }
       }
 
-      if (tokenStack.peek().equals(")"))
+      if (!tokenStack.isEmpty())
       {
-        System.out.println("peek() is a )");
-        while (!tokenStack.isEmpty() && !tokenStack.peek().equals("("))
+        System.out.println("peek of tokenStack is " + tokenStack.peek());
+        if (tokenStack.peek().equals(")"))
         {
-          doubleQueue.add(tokenStack.pop());
+          System.out.println("peek() is a )");
+          while (!tokenStack.isEmpty() && !tokenStack.peek().equals("("))
+          {
+            doubleQueue.add(tokenStack.pop());
+          }
+          System.out.println("tokenStack is popping");
+          tokenStack.pop(); //this may throw an exception...
         }
-        tokenStack.pop(); //this may throw an exception...
       }
     System.out.println("doublequeue is " + doubleQueue);
     System.out.println("tokenstack is " + tokenStack);
@@ -135,19 +140,34 @@ public class InfixToPostfix
   private int compareOperators(String op1, String op2)
   {
     if ( (op1.equals("+") || op1.equals("-")) && ( (op2.equals("*") || op2.equals("/") ) ) )
+    {
+      System.out.println(-1);
       return -1;
+    }
     else if ( (op2.equals("+") || op2.equals("-")) && ( (op1.equals("*") || op1.equals("/") ) ) )
+    {
+      System.out.println(1);
       return 1;
+    }
     else if ( (op1.equals("/") || op1.equals("*")) && ( (op2.equals("*") || op2.equals("/") ) ) )
+    {
+      System.out.println(0);
       return 0;
+    }
     else if ( (op1.equals("+") || op1.equals("-")) && ( (op2.equals("+") || op2.equals("-") ) ) )
+    {
+      System.out.println(0);
       return 0;
+    }
     else
+    {
+      System.out.println(-2);
       return -2;
+    }
   }
   public static void main(String[] args) 
   {
-    String equation = "(5+7)*9/7+3-(4-9)";
+    String equation = "(1+3)*7";
 
     InfixToPostfix itp = new InfixToPostfix(equation);
     itp.convertExprToPostfix();
