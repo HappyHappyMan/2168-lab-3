@@ -6,6 +6,7 @@ import java.util.StringTokenizer;
 import java.text.DecimalFormatSymbols;
 import java.util.Comparator;
 import java.util.Arrays;
+import java.util.ArrayDeque;
 
 /**
  * Converts infix expressions to postfix expressions, and evaluates them.
@@ -30,10 +31,15 @@ public class InfixToPostfix
     String eval;
     String[] operators = {"+","-","*","/"};
     StringTokenizer tokenizer = new StringTokenizer(expression, " +-*/()", true);
+    ArrayDeque<String> tempQueue = new ArrayDeque<String>();
     while (tokenizer.hasMoreTokens())
     {
+      tempQueue.addLast(tokenizer.nextToken());
+    }
+    while (!tempQueue.isEmpty())
+    {
       // TODO
-      eval = tokenizer.nextToken();
+      eval = tempQueue.removeFirst();
       System.out.println("Eval is: " + eval);                                                 // get the next token
       if (isStringNumeric(eval))                                                    // if it is a constant, enqueue
       {
@@ -67,15 +73,16 @@ public class InfixToPostfix
 
       if (!tokenStack.isEmpty())
       {
-        System.out.println("peek of tokenStack is " + tokenStack.peek());
-        if (tokenStack.peek().equals(")"))
+        System.out.println("peek of tempQueue is " + tempQueue.peek());
+        if (tempQueue.peek().equals(")"))
         {
           System.out.println("peek() is a )");
           while (!tokenStack.isEmpty() && !tokenStack.peek().equals("("))
           {
             doubleQueue.add(tokenStack.pop());
+            System.out.println("tokenStack is now " + tokenStack);
           }
-          System.out.println("tokenStack is popping");
+          System.out.println("tokenStack is currently " + tokenStack);
           tokenStack.pop(); //this may throw an exception...
         }
       }
@@ -167,7 +174,7 @@ public class InfixToPostfix
   }
   public static void main(String[] args) 
   {
-    String equation = "(1+3)*7";
+    String equation = "(5+7)*9/7+3";
 
     InfixToPostfix itp = new InfixToPostfix(equation);
     itp.convertExprToPostfix();
