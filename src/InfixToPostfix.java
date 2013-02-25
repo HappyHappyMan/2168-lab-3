@@ -7,6 +7,7 @@ import java.text.DecimalFormatSymbols;
 import java.util.Comparator;
 import java.util.Arrays;
 import java.util.ArrayDeque;
+import java.util.Scanner;
 
 /**
  * Converts infix expressions to postfix expressions, and evaluates them.
@@ -167,26 +168,22 @@ public class InfixToPostfix
     {
       return 1;
     }
-    else if ( (op1.equals("/") || op1.equals("*")) && ( (op2.equals("*") || op2.equals("/") ) ) )
-    {
-      return 0;
-    }
-    else if ( (op1.equals("+") || op1.equals("-")) && ( (op2.equals("+") || op2.equals("-") ) ) )
-    {
-      return 0;
-    }
     else
     {
-      return -2;
+      return 0;
     }
   }
 
   public static void main(String[] args) 
   {
-    String equation = "(5+7)*9/7+3-(4-9)";
+    Scanner in = new Scanner(System.in);
+    System.out.println("Please enter your mathematical expression here:");
+    String equation = in.nextLine();
+
 
     InfixToPostfix itp = new InfixToPostfix(equation);
     itp.convertExprToPostfix();
     double returnval = itp.evalPostFix();
+    System.out.println("Answer is " + returnval);
   }
 }
