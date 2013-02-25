@@ -54,7 +54,7 @@ public class InfixToPostfix
       else if (Arrays.asList(operators).contains(eval))                             // if the token is an operator
       {
         System.out.println("eval is an operator");
-        if (tokenStack.isEmpty() || compareOperators(eval, tokenStack.peek()) < 0)  // if stack is empty, or the if the priority of the stack has a lower priority than that of the token
+        if (tokenStack.isEmpty() || compareOperators(eval, tokenStack.peek()) > 0)  // if stack is empty, or the if the priority of the stack has a lower priority than that of the token
         {
           System.out.println("took option 1 on line 51");
           tokenStack.push(eval);
@@ -71,7 +71,7 @@ public class InfixToPostfix
         }
       }
 
-      if (!tokenStack.isEmpty())
+      if (!tokenStack.isEmpty() && tempQueue.peek() != null)
       {
         System.out.println("peek of tempQueue is " + tempQueue.peek());
         if (tempQueue.peek().equals(")"))
@@ -174,7 +174,7 @@ public class InfixToPostfix
   }
   public static void main(String[] args) 
   {
-    String equation = "(5+7)*9/7+3";
+    String equation = "-";
 
     InfixToPostfix itp = new InfixToPostfix(equation);
     itp.convertExprToPostfix();
