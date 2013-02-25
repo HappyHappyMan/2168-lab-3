@@ -84,10 +84,44 @@ public class InfixToPostfix
   // TODO i'll get to this
   private double evalPostFix()
   {
-    Stack<Double> numbers = new Stack<Double>();
-    // TODO just to shut up the linter
-    return 0.0;
+    ArrayDeque<Double> numbers = new ArrayDeque<Double>();
+    ArrayDeque<String> input = new ArrayDeque<String>();
+    double num1, num2;
 
+    doubleQueue.drainTo(input);
+
+    while (!input.isEmpty())
+    {
+      String eval = input.removeFirst();
+      if (Arrays.asList(operators).contains(eval))
+      {
+        num2 = numbers.pop();
+        num1 = numbers.pop();
+
+        if (eval.equals("+"))
+        {
+          numbers.push(num1 + num2);
+        }
+        else if (eval.equals("-"))
+        {
+          numbers.push(num1 - num2);
+        }
+        else if (eval.equals("*"))
+        {
+          numbers.push(num1 * num2);
+        }
+        else if (eval.equals("/"))
+        {
+          numbers.push(num1 / num2);
+        }
+      }
+      else if (isStringNumeric(eval))
+      {
+        numbers.push(Double.parseDouble(eval));
+      }
+    }
+
+    return numbers.pop();
   }
 
   private boolean isStringNumeric(String str)
@@ -153,5 +187,6 @@ public class InfixToPostfix
 
     InfixToPostfix itp = new InfixToPostfix(equation);
     itp.convertExprToPostfix();
+    double returnval = itp.evalPostFix();
   }
 }
