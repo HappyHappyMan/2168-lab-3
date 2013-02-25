@@ -1,10 +1,7 @@
-package Homework3;
-
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.Stack;
 import java.util.StringTokenizer;
 import java.text.DecimalFormatSymbols;
-import java.util.Comparator;
 import java.util.Arrays;
 import java.util.ArrayDeque;
 import java.util.Scanner;
