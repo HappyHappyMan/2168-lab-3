@@ -17,6 +17,7 @@ public class InfixToPostfix
   ArrayBlockingQueue<String> doubleQueue; 
   Stack<String> tokenStack;
   String expression;
+  String[] operators = {"+","-","*","/"};
 
   public InfixToPostfix(String expression)
   {
@@ -28,7 +29,6 @@ public class InfixToPostfix
   public void convertExprToPostfix()
   {
     String eval;
-    String[] operators = {"+","-","*","/"};
     StringTokenizer tokenizer = new StringTokenizer(expression, " +-*/()", true);
     ArrayDeque<String> tempQueue = new ArrayDeque<String>();
     while (tokenizer.hasMoreTokens())
@@ -85,7 +85,6 @@ public class InfixToPostfix
   private double evalPostFix()
   {
     Stack<Double> numbers = new Stack<Double>();
-    String[] operators = {"*","/","+","-",")","("};
     // TODO just to shut up the linter
     return 0.0;
 
@@ -128,30 +127,26 @@ public class InfixToPostfix
   {
     if ( (op1.equals("+") || op1.equals("-")) && ( (op2.equals("*") || op2.equals("/") ) ) )
     {
-      System.out.println(-1);
       return -1;
     }
     else if ( (op2.equals("+") || op2.equals("-")) && ( (op1.equals("*") || op1.equals("/") ) ) )
     {
-      System.out.println(1);
       return 1;
     }
     else if ( (op1.equals("/") || op1.equals("*")) && ( (op2.equals("*") || op2.equals("/") ) ) )
     {
-      System.out.println(0);
       return 0;
     }
     else if ( (op1.equals("+") || op1.equals("-")) && ( (op2.equals("+") || op2.equals("-") ) ) )
     {
-      System.out.println(0);
       return 0;
     }
     else
     {
-      System.out.println(-2);
       return -2;
     }
   }
+
   public static void main(String[] args) 
   {
     String equation = "(5+7)*9/7+3-(4-9)";
