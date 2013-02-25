@@ -14,13 +14,12 @@ import java.util.ArrayDeque;
 
 public class InfixToPostfix 
 {
-  ArrayBlockingQueue<String> doubleQueue; //check whether this needs char or string
+  ArrayBlockingQueue<String> doubleQueue; 
   Stack<String> tokenStack;
   String expression;
 
   public InfixToPostfix(String expression)
   {
-    // OperatorComparator comparator = new OperatorComparator();
     doubleQueue = new ArrayBlockingQueue<String>(expression.length());
     tokenStack = new Stack<String>();
     this.expression = expression;
@@ -38,67 +37,48 @@ public class InfixToPostfix
     }
     while (!tempQueue.isEmpty())
     {
-      // TODO
       eval = tempQueue.removeFirst();
-      System.out.println("Eval is: " + eval);                                                 // get the next token
-      if (eval.equals("("))                                                    // if token is a (, push into stack
+      if (eval.equals("("))                                                         // if token is a (
       {
-        System.out.println("eval is a (");
         tokenStack.push(eval);
       }
       else if (Arrays.asList(operators).contains(eval))                             // if the token is an operator
       {
-        System.out.println("eval is an operator");
         if (tokenStack.isEmpty() || compareOperators(eval, tokenStack.peek()) > 0)  // if stack is empty, or the if the priority of the stack has a lower priority than that of the token
         {
-          System.out.println("took option 1 on line 51");
           tokenStack.push(eval);
         }
         else
         {
-          System.out.println("took option 2 on line 56");
           while (!tokenStack.isEmpty() && !tokenStack.peek().equals("("))
           {
-            System.out.println("entered while loop on line 59");
             doubleQueue.add(tokenStack.pop());
           }
           tokenStack.push(eval);
         }
       }
-      else if (isStringNumeric(eval))                                                    // if it is a constant, enqueue
+      else if (isStringNumeric(eval))                                               // if it is a constant, enqueue
       {
-        System.out.println("eval is a number.");
         doubleQueue.add(eval);  
       }
 
       if (!tokenStack.isEmpty() && tempQueue.peek() != null)
       {
-        System.out.println("peek of tempQueue is " + tempQueue.peek());
         if (tempQueue.peek().equals(")"))
         {
-          System.out.println("peek() is a )");
           while (!tokenStack.isEmpty() && !tokenStack.peek().equals("("))
           {
             doubleQueue.add(tokenStack.pop());
-            System.out.println("tokenStack is now " + tokenStack);
           }
-          System.out.println("tokenStack is currently " + tokenStack);
-          tokenStack.pop(); //this may throw an exception...
+          tokenStack.pop(); 
         }
       }
-    System.out.println("doublequeue is " + doubleQueue);
-    System.out.println("tokenstack is " + tokenStack);
     }
 
     while (!tokenStack.isEmpty())
     {
       doubleQueue.add(tokenStack.pop());
-      System.out.println("doublequeue is " + doubleQueue);
-      System.out.println("tokenstack is " + tokenStack);
     }
-
-    System.out.println("doublequeue is " + doubleQueue);
-    System.out.println("tokenstack is " + tokenStack);
   }
 
   // TODO i'll get to this
