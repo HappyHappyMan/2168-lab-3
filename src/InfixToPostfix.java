@@ -41,12 +41,7 @@ public class InfixToPostfix
       // TODO
       eval = tempQueue.removeFirst();
       System.out.println("Eval is: " + eval);                                                 // get the next token
-      if (isStringNumeric(eval))                                                    // if it is a constant, enqueue
-      {
-        System.out.println("eval is a number.");
-        doubleQueue.add(eval);  
-      }
-      else if (eval.equals("("))                                                    // if token is a (, push into stack
+      if (eval.equals("("))                                                    // if token is a (, push into stack
       {
         System.out.println("eval is a (");
         tokenStack.push(eval);
@@ -69,6 +64,11 @@ public class InfixToPostfix
           }
           tokenStack.push(eval);
         }
+      }
+      else if (isStringNumeric(eval))                                                    // if it is a constant, enqueue
+      {
+        System.out.println("eval is a number.");
+        doubleQueue.add(eval);  
       }
 
       if (!tokenStack.isEmpty() && tempQueue.peek() != null)
@@ -174,7 +174,7 @@ public class InfixToPostfix
   }
   public static void main(String[] args) 
   {
-    String equation = "-";
+    String equation = "(5+7)*9/7+3-(4-9)";
 
     InfixToPostfix itp = new InfixToPostfix(equation);
     itp.convertExprToPostfix();
